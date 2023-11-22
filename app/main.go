@@ -1,7 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/alif-github/task-management/config"
+	"os"
+)
 
 func main() {
-	fmt.Println("Test FITHUB")
+	environment := "local"
+	args := os.Args
+	if len(args) > 1 {
+		environment = args[1]
+		fmt.Println("Application Run In Environment : ", environment)
+	}
+
+	config.GenerateConfiguration(environment)
 }
