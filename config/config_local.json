@@ -1,0 +1,22 @@
+{
+  "server": {
+    "protocol": "http",
+    "host": "0.0.0.0",
+    "port": "9078",
+    "version": "1.0.0",
+    "prefix_path": "fithub",
+    "application": "fithub",
+    "signature_key": "$(SIGNATURE_KEY)"
+  },
+  "postgresql": {
+    "driver": "pgx",
+    "address": "$(POSTGRESQL_ADDRESS)",
+    "default_schema": "fithub",
+    "max_open_connection": 500,
+    "max_idle_connection": 100
+  },
+  "log_file": [
+    "task.log",
+    "stdout"
+  ]
+}
