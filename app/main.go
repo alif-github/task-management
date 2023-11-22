@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/alif-github/task-management/config"
+	"github.com/alif-github/task-management/util"
 	"os"
 )
 
@@ -15,4 +16,5 @@ func main() {
 	}
 
 	config.GenerateConfiguration(environment)
+	util.ConfigZap(config.ApplicationConfiguration.GetLogFile())
 }
