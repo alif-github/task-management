@@ -1,4 +1,4 @@
-package usecase
+package task_usecase
 
 import (
 	"context"
@@ -17,16 +17,6 @@ func NewTaskUsecase(t domain.TaskRepository, timeout time.Duration) domain.TaskU
 		taskRepo:       t,
 		contextTimeout: timeout,
 	}
-}
-
-func (t taskUsecase) Add(ctx context.Context, task *domain.TaskRequest) util.ErrorModel {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (t taskUsecase) Update(ctx context.Context, task *domain.TaskRequest) util.ErrorModel {
-	//TODO implement me
-	panic("implement me")
 }
 
 func (t taskUsecase) Delete(ctx context.Context, task *domain.TaskRequest) util.ErrorModel {
