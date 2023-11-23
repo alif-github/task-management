@@ -114,7 +114,7 @@ func (p pgsqlTaskRepository) Delete(_ context.Context, tx *sql.Tx, task model.Ta
 
 	query = fmt.Sprintf(`
 		UPDATE %s 
-		SET deleted = FALSE, updated_by = $1, updated_at = $2 
+		SET deleted = TRUE, updated_by = $1, updated_at = $2 
 		WHERE id = $3 AND deleted = FALSE `,
 		p.TableName)
 
