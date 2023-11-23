@@ -3,10 +3,11 @@ package pgsql
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 	"github.com/alif-github/task-management/domain"
 	"github.com/alif-github/task-management/repository/task_repository/model"
-	helper "github.com/alif-github/task-management/repository/util"
+	util_repo "github.com/alif-github/task-management/repository/util"
 	"github.com/alif-github/task-management/util"
 )
 
@@ -102,7 +103,7 @@ func (p pgsqlTaskRepository) Update(_ context.Context, tx *sql.Tx, task model.Ta
 		task.Status.String, task.UpdatedBy.Int64, task.UpdatedAt.Time,
 		task.ID.Int64}
 
-	return helper.UpdateRow(nil, tx, query, params, p.FileName, funcName)
+	return util_repo.UpdateRow(nil, tx, query, params, p.FileName, funcName)
 }
 
 func (p pgsqlTaskRepository) Delete(_ context.Context, tx *sql.Tx, task model.TaskModel) util.ErrorModel {
@@ -118,12 +119,87 @@ func (p pgsqlTaskRepository) Delete(_ context.Context, tx *sql.Tx, task model.Ta
 		p.TableName)
 
 	params := []interface{}{task.UpdatedBy.Int64, task.UpdatedAt.Time, task.ID.Int64}
-	return helper.UpdateRow(nil, tx, query, params, p.FileName, funcName)
+	return util_repo.UpdateRow(nil, tx, query, params, p.FileName, funcName)
 }
 
-func (p pgsqlTaskRepository) Fetch(_ context.Context, db *sql.DB, page, limit int) ([]model.TaskModel, util.ErrorModel) {
-	//TODO implement me
-	panic("implement me")
+func (p pgsqlTaskRepository) Fetch(_ context.Context, db *sql.DB, param util_repo.GetListParameterModel) (output []model.TaskModel, err util.ErrorModel) {
+	var (
+		funcName = "Fetch"
+		query    string
+		params   []interface{}
+	)
+
+	query = fmt.Sprintf(`
+		SELECT 
+		    t.id, t.title, t.due_date, 
+		    t.status, CONCAT(u.first_name, ' ', u.last_name) as person 
+		FROM %s t 
+		INNER JOIN "user" u ON t.user_id = u.id 
+		WHERE t.deleted = FALSE `,
+		p.TableName)
+
+	if len(param.Filter) > 0 {
+		for i, itemFilter := range param.Filter {
+			switch itemFilter.Key.String {
+			case "title":
+				param.Filter[i].Key.String = "t.title"
+				if param.Filter[i].Operator.String == "like" {
+					query += " AND LOWER(t.title) like '%" + param.Filter[i].Value.String + "%'"
+				} else if param.Filter[i].Operator.String == "eq" {
+					query += " AND t.title = " + param.Filter[i].Value.String
+				} else {
+					err = util.GenerateInternalDBServerError(p.FileName, funcName, errors.New("title only eq and like"))
+					return
+				}
+			case "status":
+				param.Filter[i].Key.String = "t.status"
+				if param.Filter[i].Operator.String == "eq" {
+					query += " AND t.status = " + param.Filter[i].Value.String
+				} else {
+					err = util.GenerateInternalDBServerError(p.FileName, funcName, errors.New("status only eq"))
+					return
+				}
+			default:
+			}
+		}
+	}
+
+	if len(param.Order) > 0 {
+		query += " ORDER BY "
+		for i, itemOrder := range param.Order {
+			query += itemOrder.String
+			if len(param.Order)-(i+1) > 0 {
+				query += ", "
+			}
+		}
+	}
+
+	query += fmt.Sprintf(`LIMIT $1 OFFSET $2`)
+	params = []interface{}{param.Limit.Int64, util_repo.CountOffset(int(param.Page.Int64), int(param.Limit.Int64))}
+
+	rows, errs := db.Query(query, params...)
+	if errs != nil && errs.Error() != sql.ErrNoRows.Error() {
+		err = util.GenerateInternalDBServerError(p.FileName, funcName, errs)
+		return
+	}
+
+	var result []interface{}
+	result, err = util_repo.GetRows(rows, func(rws *sql.Rows) (interface{}, error) {
+		var temp model.TaskModel
+		errs1 := rws.Scan(
+			&temp.ID, &temp.Title, &temp.DueDate,
+			&temp.Status, &temp.User)
+		return temp, errs1
+	})
+
+	if len(result) > 0 {
+		for _, itemResult := range result {
+			output = append(output, itemResult.(model.TaskModel))
+		}
+	}
+
+	err = util.GenerateNonError()
+	return
 }
 
 func (p pgsqlTaskRepository) GetByID(_ context.Context, db *sql.DB, id int64) (output model.TaskModel, err util.ErrorModel) {

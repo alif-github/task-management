@@ -34,7 +34,7 @@ func (t taskUsecase) Delete(ctx context.Context, task *domain.TaskRequest) util.
 	panic("implement me")
 }
 
-func (t taskUsecase) Fetch(ctx context.Context, page, limit int) ([]domain.ListTaskResponse, util.ErrorModel) {
+func (t taskUsecase) Fetch(ctx context.Context, task *domain.TaskRequest) ([]domain.ListTaskResponse, util.ErrorModel) {
 	//var db = serverconfig.ServerAttribute.DBConnection
 	//TODO implement me
 	panic("implement me")

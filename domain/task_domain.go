@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/alif-github/task-management/repository/task_repository/model"
+	param "github.com/alif-github/task-management/repository/util"
 	"github.com/alif-github/task-management/util"
 	"time"
 )
@@ -50,7 +51,7 @@ type TaskUsecase interface {
 	Add(ctx context.Context, task *TaskRequest) util.ErrorModel
 	Update(ctx context.Context, task *TaskRequest) util.ErrorModel
 	Delete(ctx context.Context, task *TaskRequest) util.ErrorModel
-	Fetch(ctx context.Context, page, limit int) ([]ListTaskResponse, util.ErrorModel)
+	Fetch(ctx context.Context, task *TaskRequest) ([]ListTaskResponse, util.ErrorModel)
 	GetByID(ctx context.Context, id int64) (ViewTaskResponse, util.ErrorModel)
 }
 
@@ -58,6 +59,6 @@ type TaskRepository interface {
 	Add(ctx context.Context, tx *sql.Tx, task *model.TaskModel) util.ErrorModel
 	Update(ctx context.Context, tx *sql.Tx, task model.TaskModel) util.ErrorModel
 	Delete(ctx context.Context, tx *sql.Tx, task model.TaskModel) util.ErrorModel
-	Fetch(ctx context.Context, db *sql.DB, page, limit int) ([]model.TaskModel, util.ErrorModel)
+	Fetch(ctx context.Context, db *sql.DB, param param.GetListParameterModel) ([]model.TaskModel, util.ErrorModel)
 	GetByID(ctx context.Context, db *sql.DB, id int64) (model.TaskModel, util.ErrorModel)
 }
