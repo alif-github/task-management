@@ -24,8 +24,3 @@ func (t taskUsecase) Fetch(ctx context.Context, task *domain.TaskRequest) ([]dom
 	//TODO implement me
 	panic("implement me")
 }
-
-func (t taskUsecase) GetByID(ctx context.Context, id int64) (domain.ViewTaskResponse, util.ErrorModel) {
-	//TODO implement me
-	panic("implement me")
-}

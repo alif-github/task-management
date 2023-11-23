@@ -213,7 +213,8 @@ func (p pgsqlTaskRepository) GetByID(_ context.Context, db *sql.DB, id int64) (o
 			t.id, t.title, t.description, 
 			t.due_date, t.status, CONCAT(ut.first_name, ' ', ut.last_name) as person, 
 			CONCAT(uc.first_name, ' ', uc.last_name) as creator, t.created_at, 
-			CONCAT(up.first_name, ' ', up.last_name) as editor, t.updated_at 
+			CONCAT(up.first_name, ' ', up.last_name) as editor, t.updated_at, 
+			t.user_id
 		FROM %s t 
 		INNER JOIN "user" ut ON t.user_id = ut.id 
 		INNER JOIN "user" uc ON t.user_id = uc.id 
@@ -228,7 +229,7 @@ func (p pgsqlTaskRepository) GetByID(_ context.Context, db *sql.DB, id int64) (o
 		&output.ID, &output.Title, &output.Description,
 		&output.DueDate, &output.Status, &output.User,
 		&output.Creator, &output.CreatedAt, &output.Editor,
-		&output.UpdatedAt)
+		&output.UpdatedAt, &output.UserID)
 
 	if dbErr != nil && dbErr.Error() != sql.ErrNoRows.Error() {
 		err = util.GenerateInternalDBServerError(p.FileName, funcName, dbErr)

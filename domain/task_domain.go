@@ -52,7 +52,7 @@ type TaskUsecase interface {
 	Update(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
 	Delete(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
 	Fetch(ctx context.Context, task *TaskRequest) ([]ListTaskResponse, util.ErrorModel)
-	GetByID(ctx context.Context, id int64) (ViewTaskResponse, util.ErrorModel)
+	GetByID(ctx context.Context, context ContextModel, id int64) (ViewTaskResponse, util.ErrorModel)
 }
 
 type TaskRepository interface {

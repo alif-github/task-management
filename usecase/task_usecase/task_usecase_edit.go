@@ -34,13 +34,6 @@ func (t taskUsecase) Update(_ context.Context, context domain.ContextModel, task
 		}
 	}()
 
-	if context.LimitedID > 0 {
-		if task.UserID != context.LimitedID {
-			err = util.GenerateForbiddenError(fileName, funcName)
-			return
-		}
-	}
-
 	taskModel = model.TaskModel{
 		ID:        sql.NullInt64{Int64: task.ID},
 		Status:    sql.NullString{String: task.Status},
@@ -56,6 +49,13 @@ func (t taskUsecase) Update(_ context.Context, context domain.ContextModel, task
 	if taskOnDB.ID.Int64 < 1 {
 		err = util.GenerateNotFoundError(fileName, funcName)
 		return
+	}
+
+	if context.LimitedID > 0 {
+		if taskOnDB.UserID.Int64 != context.LimitedID {
+			err = util.GenerateForbiddenError(fileName, funcName)
+			return
+		}
 	}
 
 	err = t.taskRepo.Update(nil, tx, taskModel)
