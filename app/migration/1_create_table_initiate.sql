@@ -1,7 +1,7 @@
 -- +migrate Up
 -- +migrate StatementBegin
 
-CREATE TYPE task_status AS ENUM ('New', 'In Progress', 'Pending', 'Done');
+CREATE TYPE task_status AS ENUM ('New', 'InProgress', 'Pending', 'Done');
 
 CREATE SEQUENCE IF NOT EXISTS role_pkey_seq;
 CREATE TABLE "role"
@@ -20,8 +20,8 @@ CREATE TABLE "role"
 );
 
 INSERT INTO "role"(role_name, description, permission, created_by, updated_by) VALUES
-('Admin', 'All Access for All Menu', '{"user":["insert","update","delete","view"],"task":["insert","update","delete","view"]}', 1, 1),
-('Owner', 'Own Access for Task Menu', '{"task":["insert","update-own","delete-own","view-own"]}', 1, 1);
+('Admin', 'All Access for All Menu', 'all', 1, 1),
+('Owner', 'Own Access for Task Menu', 'own', 1, 1);
 
 CREATE SEQUENCE IF NOT EXISTS user_pkey_seq;
 CREATE TABLE "user"

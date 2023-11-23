@@ -15,6 +15,7 @@ type User struct {
 	Password     string `json:"password" binding:"required,min=8,max=20"`
 	Email        string `json:"email" binding:"required,email"`
 	RoleID       int64  `json:"role_id" binding:"required,gt=0"`
+	Role         string `json:"role"`
 	CreatedBy    int64  `json:"created_by"`
 	CreatedAtStr string `json:"created_at"`
 	UpdatedBy    int64  `json:"updated_by"`

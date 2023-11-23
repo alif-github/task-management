@@ -181,12 +181,15 @@ func (p pgsqlUserRepository) GetByName(_ context.Context, db *sql.DB, name strin
 func (p pgsqlUserRepository) GetLogin(_ context.Context, db *sql.DB, users *domain.User) (output domain.User, err util.ErrorModel) {
 	funcName := "GetLogin"
 	query := fmt.Sprintf(` 
-		SELECT id, password FROM %s WHERE username = $1 AND deleted = FALSE `,
+		SELECT u.id, u.password, r.role_name
+		FROM %s u 
+		INNER JOIN role r ON u.role_id = r.id
+		WHERE u.username = $1 AND u.deleted = FALSE AND r.deleted = FALSE `,
 		p.TableName)
 
 	params := []interface{}{users.Username}
 	results := db.QueryRow(query, params...)
-	dbErr := results.Scan(&output.ID, &output.Password)
+	dbErr := results.Scan(&output.ID, &output.Password, &output.Role)
 	if dbErr != nil && dbErr.Error() != sql.ErrNoRows.Error() {
 		err = util.GenerateInternalDBServerError(p.FileName, funcName, dbErr)
 		return
