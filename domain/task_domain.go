@@ -50,7 +50,7 @@ type ViewTaskResponse struct {
 type TaskUsecase interface {
 	Add(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
 	Update(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
-	Delete(ctx context.Context, task *TaskRequest) util.ErrorModel
+	Delete(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
 	Fetch(ctx context.Context, task *TaskRequest) ([]ListTaskResponse, util.ErrorModel)
 	GetByID(ctx context.Context, id int64) (ViewTaskResponse, util.ErrorModel)
 }

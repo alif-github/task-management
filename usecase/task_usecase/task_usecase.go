@@ -19,11 +19,6 @@ func NewTaskUsecase(t domain.TaskRepository, timeout time.Duration) domain.TaskU
 	}
 }
 
-func (t taskUsecase) Delete(ctx context.Context, task *domain.TaskRequest) util.ErrorModel {
-	//TODO implement me
-	panic("implement me")
-}
-
 func (t taskUsecase) Fetch(ctx context.Context, task *domain.TaskRequest) ([]domain.ListTaskResponse, util.ErrorModel) {
 	//var db = serverconfig.ServerAttribute.DBConnection
 	//TODO implement me

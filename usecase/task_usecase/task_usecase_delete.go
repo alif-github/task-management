@@ -10,10 +10,10 @@ import (
 	"time"
 )
 
-func (t taskUsecase) Update(_ context.Context, context domain.ContextModel, task *domain.TaskRequest) (err util.ErrorModel) {
+func (t taskUsecase) Delete(_ context.Context, context domain.ContextModel, task *domain.TaskRequest) (err util.ErrorModel) {
 	var (
-		fileName  = "task_usecase_update.go"
-		funcName  = "Update"
+		fileName  = "task_usecase_delete.go"
+		funcName  = "Delete"
 		db        = serverconfig.ServerAttribute.DBConnection
 		timeNow   = time.Now()
 		taskModel model.TaskModel
@@ -43,7 +43,6 @@ func (t taskUsecase) Update(_ context.Context, context domain.ContextModel, task
 
 	taskModel = model.TaskModel{
 		ID:        sql.NullInt64{Int64: task.ID},
-		Status:    sql.NullString{String: task.Status},
 		UpdatedBy: sql.NullInt64{Int64: context.UserLoginID},
 		UpdatedAt: sql.NullTime{Time: timeNow},
 	}
@@ -58,7 +57,7 @@ func (t taskUsecase) Update(_ context.Context, context domain.ContextModel, task
 		return
 	}
 
-	err = t.taskRepo.Update(nil, tx, taskModel)
+	err = t.taskRepo.Delete(nil, tx, taskModel)
 	if err.Err != nil {
 		return
 	}
