@@ -10,6 +10,7 @@ import (
 )
 
 type TaskRequest struct {
+	GetListParameter
 	ID           int64  `json:"id"`
 	Title        string `json:"title" binding:"required,min=1,max=255"`
 	Description  string `json:"description"`
@@ -26,12 +27,11 @@ type TaskRequest struct {
 }
 
 type ListTaskResponse struct {
-	ID          int64     `json:"id"`
-	Title       string    `json:"title"`
-	Description string    `json:"description"`
-	Status      string    `json:"status"`
-	DueDate     time.Time `json:"due_date"`
-	User        string    `json:"user"`
+	ID      int64     `json:"id"`
+	Title   string    `json:"title"`
+	Status  string    `json:"status"`
+	DueDate time.Time `json:"due_date"`
+	User    string    `json:"user"`
 }
 
 type ViewTaskResponse struct {
@@ -51,7 +51,7 @@ type TaskUsecase interface {
 	Add(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
 	Update(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
 	Delete(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
-	Fetch(ctx context.Context, task *TaskRequest) ([]ListTaskResponse, util.ErrorModel)
+	Fetch(ctx context.Context, context ContextModel, task *TaskRequest) ([]ListTaskResponse, util.ErrorModel)
 	GetByID(ctx context.Context, context ContextModel, id int64) (ViewTaskResponse, util.ErrorModel)
 }
 

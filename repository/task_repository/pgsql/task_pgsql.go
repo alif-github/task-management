@@ -146,7 +146,7 @@ func (p pgsqlTaskRepository) Fetch(_ context.Context, db *sql.DB, param util_rep
 				if param.Filter[i].Operator.String == "like" {
 					query += " AND LOWER(t.title) like '%" + param.Filter[i].Value.String + "%'"
 				} else if param.Filter[i].Operator.String == "eq" {
-					query += " AND t.title = " + param.Filter[i].Value.String
+					query += " AND t.title = '" + param.Filter[i].Value.String + "'"
 				} else {
 					err = util.GenerateInternalDBServerError(p.FileName, funcName, errors.New("title only eq and like"))
 					return
@@ -154,9 +154,17 @@ func (p pgsqlTaskRepository) Fetch(_ context.Context, db *sql.DB, param util_rep
 			case "status":
 				param.Filter[i].Key.String = "t.status"
 				if param.Filter[i].Operator.String == "eq" {
-					query += " AND t.status = " + param.Filter[i].Value.String
+					query += " AND t.status = '" + param.Filter[i].Value.String + "'"
 				} else {
 					err = util.GenerateInternalDBServerError(p.FileName, funcName, errors.New("status only eq"))
+					return
+				}
+			case "user_id":
+				param.Filter[i].Key.String = "t.user_id"
+				if param.Filter[i].Operator.String == "eq" {
+					query += " AND t.user_id = " + param.Filter[i].Value.String
+				} else {
+					err = util.GenerateInternalDBServerError(p.FileName, funcName, errors.New("user_id only eq"))
 					return
 				}
 			default:
@@ -167,7 +175,7 @@ func (p pgsqlTaskRepository) Fetch(_ context.Context, db *sql.DB, param util_rep
 	if len(param.Order) > 0 {
 		query += " ORDER BY "
 		for i, itemOrder := range param.Order {
-			query += itemOrder.String
+			query += itemOrder.Order.String
 			if len(param.Order)-(i+1) > 0 {
 				query += ", "
 			}

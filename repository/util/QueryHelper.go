@@ -10,13 +10,17 @@ type GetListParameterModel struct {
 	Page   sql.NullInt64
 	Limit  sql.NullInt64
 	Filter []ListFilter
-	Order  []sql.NullString
+	Order  []ListOrder
 }
 
 type ListFilter struct {
 	Key      sql.NullString
 	Operator sql.NullString
 	Value    sql.NullString
+}
+
+type ListOrder struct {
+	Order sql.NullString
 }
 
 func UpdateRow(_ context.Context, tx *sql.Tx, query string, params []interface{}, fileName, funcName string) util.ErrorModel {
