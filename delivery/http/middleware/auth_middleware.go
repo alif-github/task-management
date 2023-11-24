@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"github.com/alif-github/clean-arch/config"
-	"github.com/alif-github/clean-arch/delivery"
-	"github.com/alif-github/clean-arch/util"
+	"github.com/alif-github/task-management/config"
+	delivery_helper "github.com/alif-github/task-management/delivery/util"
+	"github.com/alif-github/task-management/util"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -15,13 +15,13 @@ func AuthMiddleware(c *gin.Context) {
 	var tokenStr string
 	cookies := c.Request.Cookies()
 	for _, cookie := range cookies {
-		if cookie.Name == "jwt_token" {
+		if cookie.Name == "fit_token" {
 			tokenStr = cookie.Value
 		}
 	}
 
 	if tokenStr == "" {
-		c.JSON(http.StatusUnauthorized, delivery.WriteErrorResponse(requestID.(string), "Token is missing"))
+		c.JSON(http.StatusUnauthorized, delivery_helper.WriteErrorResponse(requestID.(string), "Token is missing"))
 		c.Abort()
 		return
 	}
@@ -31,7 +31,7 @@ func AuthMiddleware(c *gin.Context) {
 	})
 
 	if errs != nil || !token.Valid {
-		c.JSON(http.StatusUnauthorized, delivery.WriteErrorResponse(requestID.(string), "Unauthorized"))
+		c.JSON(http.StatusUnauthorized, delivery_helper.WriteErrorResponse(requestID.(string), "Unauthorized"))
 		c.Abort()
 		return
 	}

@@ -37,15 +37,20 @@ func (input UsersHandler) LogoutHandler(c *gin.Context) {
 	defer delivery_helper.WriteLogStdout(nil, &util.ErrorModel{}, requestID, fmt.Sprintf(`[%s, %s]`, fileName, funcName))
 
 	for _, itemCookie := range cookies {
-		if itemCookie.Name == "jwt_token" {
+		if itemCookie.Name == "fit_token" {
 			jwtToken = itemCookie
 			break
 		}
 	}
 
 	if jwtToken != nil {
-		jwtToken.Expires = time.Now().Add(-1 * time.Hour)
-		http.SetCookie(c.Writer, jwtToken)
+		http.SetCookie(c.Writer, &http.Cookie{
+			Name:     "fit_token",
+			Value:    "",
+			HttpOnly: true,
+			Path:     "/",
+			MaxAge:   int(time.Now().Add(-1 * time.Hour).Unix()),
+		})
 		c.JSON(http.StatusOK, delivery_helper.WriteSuccessResponse(requestID, "Logout Success!!", nil))
 	} else {
 		c.JSON(http.StatusNotFound, delivery_helper.WriteErrorResponse(requestID, "Cookies Not Found/Unauthorized"))

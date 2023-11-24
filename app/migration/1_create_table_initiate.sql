@@ -30,7 +30,7 @@ CREATE TABLE "user"
     first_name     VARCHAR(50) NOT NULL,
     last_name      VARCHAR(100),
     username       VARCHAR(20) NOT NULL,
-    password       VARCHAR(20) NOT NULL,
+    password       VARCHAR(255) NOT NULL,
     email          VARCHAR(255) NOT NULL,
     role_id        BIGINT,
     created_by     BIGINT,
@@ -43,8 +43,8 @@ CREATE TABLE "user"
     CONSTRAINT uq_user_name UNIQUE (first_name, last_name)
 );
 
-INSERT INTO "user"(first_name, username, password, email) VALUES
-('System', 'System', 'System', 'System');
+INSERT INTO "user"(first_name, last_name, username, password, email) VALUES
+('System', 'System', 'System', 'System', 'System');
 
 CREATE SEQUENCE IF NOT EXISTS task_pkey_seq;
 CREATE TABLE "task"

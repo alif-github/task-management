@@ -26,7 +26,7 @@ func NewPgsqlUserRepository(conn *sql.DB) domain.UserRepository {
 func (p pgsqlUserRepository) Store(_ context.Context, tx *sql.Tx, users *domain.User) util.ErrorModel {
 	funcName := "Store"
 	query := fmt.Sprintf(`
-		INSERT INTO %s 
+		INSERT INTO "%s" 
 		(
 		 username, password, first_name, 
 		 last_name, email, created_at, 
@@ -47,7 +47,6 @@ func (p pgsqlUserRepository) Store(_ context.Context, tx *sql.Tx, users *domain.
 		users.RoleID}
 	result := tx.QueryRow(query, params...)
 	errs := result.Scan(&users.ID)
-
 	if errs != nil && errs.Error() != sql.ErrNoRows.Error() {
 		return util.GenerateInternalDBServerError(p.FileName, funcName, errs)
 	}
@@ -58,7 +57,7 @@ func (p pgsqlUserRepository) Store(_ context.Context, tx *sql.Tx, users *domain.
 func (p pgsqlUserRepository) Update(_ context.Context, tx *sql.Tx, users *domain.User) util.ErrorModel {
 	funcName := "Update"
 	query := fmt.Sprintf(`
-		UPDATE %s SET 
+		UPDATE "%s" SET 
 		username = $1, password = $2, first_name = $3, 
 		last_name = $4, email = $5, role_id = $6,
 		updated_by = $7, updated_at = $8 
@@ -77,7 +76,7 @@ func (p pgsqlUserRepository) Update(_ context.Context, tx *sql.Tx, users *domain
 func (p pgsqlUserRepository) Delete(ctx context.Context, tx *sql.Tx, users *domain.User) util.ErrorModel {
 	funcName := "Delete"
 	query := fmt.Sprintf(`
-		UPDATE %s SET deleted = TRUE, updated_at = $1, updated_by = $2 WHERE id = $3 `,
+		UPDATE "%s" SET deleted = TRUE, updated_at = $1, updated_by = $2 WHERE id = $3 `,
 		p.TableName)
 
 	params := []interface{}{users.UpdatedAt, users.UpdatedBy, users.ID}
@@ -90,7 +89,7 @@ func (p pgsqlUserRepository) Fetch(_ context.Context, db *sql.DB, page, limit in
 		SELECT 
 		    id, first_name, last_name, 
 		    username, email 
-		FROM %s 
+		FROM "%s" 
 		ORDER BY id 
 		LIMIT $1 OFFSET $2 `,
 		p.TableName)
@@ -135,7 +134,7 @@ func (p pgsqlUserRepository) GetByID(_ context.Context, db *sql.DB, id int64) (o
 		    id, first_name, last_name, 
 		    username, email, created_at, 
 		    updated_at, deleted 
-		FROM %s 
+		FROM "%s" 
 		WHERE id = $1 AND deleted = FALSE `,
 		p.TableName)
 
@@ -144,7 +143,7 @@ func (p pgsqlUserRepository) GetByID(_ context.Context, db *sql.DB, id int64) (o
 	dbErr := results.Scan(
 		&output.ID, &output.FirstName, &output.LastName,
 		&output.Username, &output.Email,
-		&output.CreatedAt, &output.UpdatedAt,
+		&output.CreatedAtStr, &output.UpdatedAtStr,
 		&output.Deleted)
 	if dbErr != nil && dbErr.Error() != sql.ErrNoRows.Error() {
 		err = util.GenerateInternalDBServerError(p.FileName, funcName, dbErr)
@@ -159,7 +158,7 @@ func (p pgsqlUserRepository) GetByName(_ context.Context, db *sql.DB, name strin
 	funcName := "GetByName"
 	query := fmt.Sprintf(` 
 		SELECT id, first_name, last_name, username, email 
-		FROM %s 
+		FROM "%s" 
 		WHERE CONCAT(first_name, ' ', last_name) = $1 AND deleted = FALSE `,
 		p.TableName)
 
@@ -182,7 +181,7 @@ func (p pgsqlUserRepository) GetLogin(_ context.Context, db *sql.DB, users *doma
 	funcName := "GetLogin"
 	query := fmt.Sprintf(` 
 		SELECT u.id, u.password, r.role_name
-		FROM %s u 
+		FROM "%s" u 
 		INNER JOIN role r ON u.role_id = r.id
 		WHERE u.username = $1 AND u.deleted = FALSE AND r.deleted = FALSE `,
 		p.TableName)

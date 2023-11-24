@@ -2,12 +2,14 @@ package controller
 
 import (
 	"fmt"
-	"github.com/alif-github/clean-arch/app/serverconfig"
-	"github.com/alif-github/clean-arch/config"
-	"github.com/alif-github/clean-arch/delivery/http"
-	"github.com/alif-github/clean-arch/delivery/http/middleware"
-	"github.com/alif-github/clean-arch/repository/pgsql"
-	"github.com/alif-github/clean-arch/usecase"
+	"github.com/alif-github/task-management/app/serverconfig"
+	"github.com/alif-github/task-management/config"
+	"github.com/alif-github/task-management/delivery/http/handler"
+	"github.com/alif-github/task-management/delivery/http/middleware"
+	task_repository "github.com/alif-github/task-management/repository/task_repository/pgsql"
+	user_repository "github.com/alif-github/task-management/repository/user_repository/pgsql"
+	"github.com/alif-github/task-management/usecase/task_usecase"
+	"github.com/alif-github/task-management/usecase/user_usecase"
 	"github.com/gin-gonic/gin"
 	"time"
 )
@@ -19,8 +21,8 @@ func Controller() {
 	r.Use(middleware.BasicMiddleware)
 
 	// For set init service
-	userHandler := http.NewUsersHandler(usecase.NewUsersUsecase(pgsql.NewPsqlUsersRepository(serverconfig.ServerAttribute.DBConnection), 10*time.Second))
-	taskHandler := http.NewTasksHandler(usecase.NewTaskUsecase(pgsql.NewPsqlTasksRepository(serverconfig.ServerAttribute.DBConnection), 10*time.Second))
+	userHandler := handler.NewUsersHandler(user_usecase.NewUsersUsecase(user_repository.NewPgsqlUserRepository(serverconfig.ServerAttribute.DBConnection), 10*time.Second))
+	taskHandler := handler.NewTasksHandler(task_usecase.NewTaskUsecase(task_repository.NewPgsqlTaskRepository(serverconfig.ServerAttribute.DBConnection), 10*time.Second))
 
 	// WhiteListAPI no authorization here (public)
 	whiteListAPI := r.Group(prefixPath + "/oauth")

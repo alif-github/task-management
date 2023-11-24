@@ -65,7 +65,7 @@ func (input TasksHandler) UpdateTaskHandler(c *gin.Context) {
 		fileName  = "tasks_handler.go"
 		funcName  = "UpdateTaskHandler"
 		requestID string
-		task      domain.TaskRequest
+		task      domain.TaskUpdateRequest
 		errs      error
 		err       util.ErrorModel
 	)
@@ -110,10 +110,11 @@ func (input TasksHandler) UpdateTaskHandler(c *gin.Context) {
 		limitedID = userID
 	}
 
+	task.ID = int64(id)
 	err = input.taskUsecase.Update(c, domain.ContextModel{
 		UserLoginID: userID,
 		LimitedID:   limitedID,
-	}, &domain.TaskRequest{ID: int64(id)})
+	}, &task)
 	if err.Err != nil {
 		c.JSON(err.Code, delivery_helper.WriteErrorResponse(requestID, err.Err.Error()))
 		return

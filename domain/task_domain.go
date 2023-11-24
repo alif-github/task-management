@@ -26,6 +26,12 @@ type TaskRequest struct {
 	UpdatedAt    time.Time
 }
 
+type TaskUpdateRequest struct {
+	GetListParameter
+	ID     int64  `json:"id"`
+	Status string `json:"status" binding:"required,oneof=New InProgress Pending Done"`
+}
+
 type ListTaskResponse struct {
 	ID      int64     `json:"id"`
 	Title   string    `json:"title"`
@@ -49,7 +55,7 @@ type ViewTaskResponse struct {
 
 type TaskUsecase interface {
 	Add(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
-	Update(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
+	Update(ctx context.Context, context ContextModel, task *TaskUpdateRequest) util.ErrorModel
 	Delete(ctx context.Context, context ContextModel, task *TaskRequest) util.ErrorModel
 	Fetch(ctx context.Context, context ContextModel, task *TaskRequest) ([]ListTaskResponse, util.ErrorModel)
 	GetByID(ctx context.Context, context ContextModel, id int64) (ViewTaskResponse, util.ErrorModel)

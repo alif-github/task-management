@@ -24,29 +24,33 @@ func (t taskUsecase) Fetch(_ context.Context, context domain.ContextModel, task 
 		listDataDB    []model.TaskModel
 	)
 
-	filter := strings.Split(task.Filter, ",")
-	for _, itemFilter := range filter {
-		filterComponent := strings.Split(itemFilter, " ")
-		if len(filterComponent) != 3 {
-			err = util2.GenerateUnknownServerError(fileName, funcName, errors.New("wrong format"))
-			return
-		}
+	if task.Filter != "" {
+		filter := strings.Split(task.Filter, ",")
+		for _, itemFilter := range filter {
+			filterComponent := strings.Split(itemFilter, " ")
+			if len(filterComponent) != 3 {
+				err = util2.GenerateUnknownServerError(fileName, funcName, errors.New("wrong format"))
+				return
+			}
 
-		if filterComponent[1] != "eq" && filterComponent[1] != "like" {
-			err = util2.GenerateUnknownServerError(fileName, funcName, errors.New("wrong format must eq or like"))
-			return
-		}
+			if filterComponent[1] != "eq" && filterComponent[1] != "like" {
+				err = util2.GenerateUnknownServerError(fileName, funcName, errors.New("wrong format must eq or like"))
+				return
+			}
 
-		listFilter = append(listFilter, util.ListFilter{
-			Key:      sql.NullString{String: filterComponent[0]},
-			Operator: sql.NullString{String: filterComponent[1]},
-			Value:    sql.NullString{String: filterComponent[2]},
-		})
+			listFilter = append(listFilter, util.ListFilter{
+				Key:      sql.NullString{String: filterComponent[0]},
+				Operator: sql.NullString{String: filterComponent[1]},
+				Value:    sql.NullString{String: filterComponent[2]},
+			})
+		}
 	}
 
-	order := strings.Split(task.Order, ",")
-	for _, itemOrder := range order {
-		listOrder = append(listOrder, util.ListOrder{Order: sql.NullString{String: itemOrder}})
+	if task.Order != "" {
+		order := strings.Split(task.Order, ",")
+		for _, itemOrder := range order {
+			listOrder = append(listOrder, util.ListOrder{Order: sql.NullString{String: itemOrder}})
+		}
 	}
 
 	if context.LimitedID > 0 {

@@ -66,7 +66,7 @@ func WriteLogStdout(errs error, err *util.ErrorModel, requestID, handlerName str
 
 func SetJWTTokenCookie(c *gin.Context, token string, claims jwt.MapClaims) {
 	cookie := &http.Cookie{
-		Name:     "jwt_token",
+		Name:     "fit_token",
 		Value:    token,
 		HttpOnly: true,
 		Path:     "/",

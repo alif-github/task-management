@@ -1,0 +1,1044 @@
+{
+	"info": {
+		"_postman_id": "22f1a1fc-afdf-4242-9023-c089fe41bb96",
+		"name": "PROJECT-COLLECTION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21182265"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Samuel\",\r\n    \"last_name\": \"Wijk\",\r\n    \"username\": \"samuel15\",\r\n    \"password\": \"Samuel123@\",\r\n    \"email\": \"samuel@gmail.com\",\r\n    \"role_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9078/fithub/oauth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"oauth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"Guntur\",\r\n    \"last_name\": \"Putra\",\r\n    \"username\": \"guntur15\",\r\n    \"password\": \"Guntur123@\",\r\n    \"email\": \"guntur@gmail.com\",\r\n    \"role_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9078/fithub/oauth/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9078",
+									"path": [
+										"fithub",
+										"oauth",
+										"register"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Nov 2023 00:01:17 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "109"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"request_id\": \"a1cf547b-69e1-4216-9fd8-4114df93796c\",\n    \"status\": true,\n    \"message\": \"Success Register!\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get ID User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9078/fithub/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get ID User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9078/fithub/users/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9078",
+									"path": [
+										"fithub",
+										"users",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Nov 2023 00:20:28 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "444"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"request_id\": \"c08bf262-c38d-45c9-94d6-571bcc86effb\",\n    \"status\": true,\n    \"message\": \"Success Get Detail!\",\n    \"data\": {\n        \"id\": 2,\n        \"first_name\": \"Guntur\",\n        \"last_name\": \"Putra\",\n        \"username\": \"guntur15\",\n        \"password\": \"\",\n        \"email\": \"guntur@gmail.com\",\n        \"role_id\": 0,\n        \"role\": \"\",\n        \"created_by\": 0,\n        \"created_at\": \"2023-11-24T07:01:17.304501Z\",\n        \"updated_by\": 0,\n        \"updated_at\": \"2023-11-24T07:01:17.304501Z\",\n        \"CreatedAt\": \"0001-01-01T00:00:00Z\",\n        \"UpdatedAt\": \"0001-01-01T00:00:00Z\",\n        \"deleted\": false\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTcxOTI0NjYsInVzZXJuYW1lIjoiYWxzeWFodHQifQ.cbx26TGr5vefIEITgbpvuy9I9aEHX708JVjC6FinIqU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9078/project/users?page=1&limit=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"project",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Fetch User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9078/fithub/users?page=1&limit=2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9078",
+									"path": [
+										"fithub",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Nov 2023 00:25:27 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "665"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"request_id\": \"ccc5d750-5e91-4661-b83f-2273d89b3089\",\n    \"status\": true,\n    \"message\": \"Success Get Detail!\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"first_name\": \"System\",\n            \"last_name\": \"System\",\n            \"username\": \"System\",\n            \"password\": \"\",\n            \"email\": \"System\",\n            \"role_id\": 0,\n            \"role\": \"\",\n            \"created_by\": 0,\n            \"created_at\": \"\",\n            \"updated_by\": 0,\n            \"updated_at\": \"\",\n            \"CreatedAt\": \"0001-01-01T00:00:00Z\",\n            \"UpdatedAt\": \"0001-01-01T00:00:00Z\",\n            \"deleted\": false\n        },\n        {\n            \"id\": 2,\n            \"first_name\": \"Guntur\",\n            \"last_name\": \"Putra\",\n            \"username\": \"guntur15\",\n            \"password\": \"\",\n            \"email\": \"guntur@gmail.com\",\n            \"role_id\": 0,\n            \"role\": \"\",\n            \"created_by\": 0,\n            \"created_at\": \"\",\n            \"updated_by\": 0,\n            \"updated_at\": \"\",\n            \"CreatedAt\": \"0001-01-01T00:00:00Z\",\n            \"UpdatedAt\": \"0001-01-01T00:00:00Z\",\n            \"deleted\": false\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTcxOTI0NjYsInVzZXJuYW1lIjoiYWxzeWFodHQifQ.cbx26TGr5vefIEITgbpvuy9I9aEHX708JVjC6FinIqU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Guntur\",\r\n    \"last_name\": \"Putra\",\r\n    \"username\": \"guntur15\",\r\n    \"password\": \"Guntur123@\",\r\n    \"email\": \"guntur1@gmail.com\",\r\n    \"role_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9078/fithub/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update User",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTcxOTI0NjYsInVzZXJuYW1lIjoiYWxzeWFodHQifQ.cbx26TGr5vefIEITgbpvuy9I9aEHX708JVjC6FinIqU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"Guntur\",\r\n    \"last_name\": \"Putra\",\r\n    \"username\": \"guntur15\",\r\n    \"password\": \"Guntur123@\",\r\n    \"email\": \"guntur1@gmail.com\",\r\n    \"role_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9078/fithub/users/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9078",
+									"path": [
+										"fithub",
+										"users",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Nov 2023 00:29:15 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"request_id\": \"829725ff-3433-4ce6-aa73-ff92e247df46\",\n    \"status\": true,\n    \"message\": \"Success Update!\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTcxOTQzMzcsInVzZXJuYW1lIjoiYWxzeWFodHQifQ.lN7JBLa1p5G2Nk-4if0jNsRbez9Ro2s1LU6Y5I51a7g",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9078/fithub/users/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete User",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTcxOTQzMzcsInVzZXJuYW1lIjoiYWxzeWFodHQifQ.lN7JBLa1p5G2Nk-4if0jNsRbez9Ro2s1LU6Y5I51a7g",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9078/fithub/users/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9078",
+									"path": [
+										"fithub",
+										"users",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Nov 2023 00:29:56 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"request_id\": \"83add697-e390-43b3-afc1-153ff6be3bf7\",\n    \"status\": true,\n    \"message\": \"Success Delete!\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Percobaan 1\",\r\n    \"description\": \"Percobaan 1\",\r\n    \"due_date\": \"2023-11-24T00:00:00Z\",\r\n    \"status\": \"New\",\r\n    \"user_id\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9078/fithub/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"tasks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Store",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Percobaan 2\",\r\n    \"description\": \"Percobaan 2\",\r\n    \"due_date\": \"2023-11-24T00:00:00Z\",\r\n    \"status\": \"New\",\r\n    \"user_id\": 4\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9078/fithub/tasks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9078",
+									"path": [
+										"fithub",
+										"tasks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Nov 2023 00:36:16 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "111"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"request_id\": \"a0d9a453-47c1-4d7f-ab36-439c9efc8784\",\n    \"status\": true,\n    \"message\": \"Success Store Data!\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get ID Task",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9078/fithub/tasks/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"tasks",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get ID Task",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9078/fithub/tasks/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9078",
+									"path": [
+										"fithub",
+										"tasks",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Nov 2023 00:36:46 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "379"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"request_id\": \"04528a50-82cf-4d6a-9d04-30bb3eaa7261\",\n    \"status\": true,\n    \"message\": \"Success Get Detail!\",\n    \"data\": {\n        \"id\": 2,\n        \"title\": \"Percobaan 1\",\n        \"description\": \"Percobaan 1\",\n        \"status\": \"New\",\n        \"due_date\": \"2023-11-24T00:00:00Z\",\n        \"user\": \"Samuel Wijk\",\n        \"created_user\": \"Samuel Wijk\",\n        \"created_at\": \"2023-11-24T07:35:34.041274Z\",\n        \"updated_user\": \"Samuel Wijk\",\n        \"updated_at\": \"2023-11-24T07:35:34.041274Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Fetch Task",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9078/fithub/tasks?page=1&limit=5&filter=status eq New&order=status ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "filter",
+									"value": "status eq New"
+								},
+								{
+									"key": "order",
+									"value": "status ASC"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Fetch Task",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9078/fithub/tasks?page=1&limit=5&filter=status eq New&order=status ASC",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9078",
+									"path": [
+										"fithub",
+										"tasks"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "5"
+										},
+										{
+											"key": "filter",
+											"value": "status eq New"
+										},
+										{
+											"key": "order",
+											"value": "status ASC"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Nov 2023 00:54:30 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "209"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"request_id\": \"3b87380a-8279-495c-8851-0a2419179730\",\n    \"status\": true,\n    \"message\": \"Success Get Detail!\",\n    \"data\": [\n        {\n            \"id\": 3,\n            \"title\": \"Percobaan 2\",\n            \"status\": \"New\",\n            \"due_date\": \"2023-11-24T00:00:00Z\",\n            \"user\": \"Samuel Wijk\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"Pending\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9078/fithub/tasks/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"tasks",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Task",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": \"InProgress\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:9078/fithub/tasks/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9078",
+									"path": [
+										"fithub",
+										"tasks",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Nov 2023 00:43:23 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"request_id\": \"5bf3f67b-6a90-41b6-80c9-cd2ade0b1517\",\n    \"status\": true,\n    \"message\": \"Success Update!\",\n    \"data\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9078/fithub/tasks/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"tasks",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Task",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9078/fithub/tasks/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9078",
+									"path": [
+										"fithub",
+										"tasks",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 24 Nov 2023 00:43:54 GMT"
+								},
+								{
+									"key": "Content-Length",
+									"value": "107"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"request_id\": \"53637928-7f10-460e-b0fb-600695f08e82\",\n    \"status\": true,\n    \"message\": \"Success Delete!\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"guntur15\",\r\n    \"password\": \"Guntur123@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9078/fithub/oauth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9078",
+					"path": [
+						"fithub",
+						"oauth",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"guntur15\",\r\n    \"password\": \"Guntur123@\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9078/fithub/oauth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"oauth",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "fit_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDA3ODY0MTgsInBlcm1pc3Npb24iOiJBZG1pbiIsInVzZXJfaWQiOjIsInVzZXJuYW1lIjoiZ3VudHVyMTUifQ.84LUTGPQZo-MF9roSKI68l9mQZB-K3NU0y5_-HWWLDc; Path=/; Max-Age=1700786418; HttpOnly"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 24 Nov 2023 00:10:18 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "112"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"request_id\": \"1124ffb3-8f90-4915-9f31-631be3520541\",\n    \"status\": true,\n    \"message\": \"Token has generated!\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9078/fithub/oauth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9078",
+					"path": [
+						"fithub",
+						"oauth",
+						"logout"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Logout",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9078/fithub/oauth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9078",
+							"path": [
+								"fithub",
+								"oauth",
+								"logout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET, POST, PUT, DELETE"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "fit_token=; Path=/; Max-Age=1700781293; HttpOnly"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 24 Nov 2023 00:14:53 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "108"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"request_id\": \"95527b01-5c88-491e-97fa-695c1d5b847c\",\n    \"status\": true,\n    \"message\": \"Logout Success!!\",\n    \"data\": null\n}"
+				}
+			]
+		}
+	]
+}

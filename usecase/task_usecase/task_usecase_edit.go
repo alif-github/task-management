@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func (t taskUsecase) Update(_ context.Context, context domain.ContextModel, task *domain.TaskRequest) (err util.ErrorModel) {
+func (t taskUsecase) Update(_ context.Context, context domain.ContextModel, task *domain.TaskUpdateRequest) (err util.ErrorModel) {
 	var (
 		fileName  = "task_usecase_update.go"
 		funcName  = "Update"

@@ -44,39 +44,10 @@ func (p pgsqlTaskRepository) Add(_ context.Context, tx *sql.Tx, task *model.Task
 		RETURNING id`,
 		p.TableName)
 
-	if task.Title.Valid {
-		param = append(param, task.Title.String)
-	} else {
-		param = append(param, nil)
-	}
-
-	if task.Description.Valid {
-		param = append(param, task.Description.String)
-	} else {
-		param = append(param, nil)
-	}
-
-	if task.DueDate.Valid {
-		param = append(param, task.DueDate.Time)
-	} else {
-		param = append(param, nil)
-	}
-
-	if task.Status.Valid {
-		param = append(param, task.Status.String)
-	} else {
-		param = append(param, nil)
-	}
-
-	if task.UserID.Valid {
-		param = append(param, task.UserID.Int64)
-	} else {
-		param = append(param, nil)
-	}
-
 	param = append(param,
-		task.CreatedBy.Int64, task.CreatedAt.Time, task.UpdatedBy.Int64,
-		task.UpdatedAt.Time)
+		task.Title.String, task.Description.String, task.DueDate.Time,
+		task.Status.String, task.UserID.Int64, task.CreatedBy.Int64,
+		task.CreatedAt.Time, task.UpdatedBy.Int64, task.UpdatedAt.Time)
 
 	result := tx.QueryRow(query, param...)
 	errs := result.Scan(&task.ID)
@@ -182,7 +153,7 @@ func (p pgsqlTaskRepository) Fetch(_ context.Context, db *sql.DB, param util_rep
 		}
 	}
 
-	query += fmt.Sprintf(`LIMIT $1 OFFSET $2`)
+	query += fmt.Sprintf(` LIMIT $1 OFFSET $2`)
 	params = []interface{}{param.Limit.Int64, util_repo.CountOffset(int(param.Page.Int64), int(param.Limit.Int64))}
 
 	rows, errs := db.Query(query, params...)

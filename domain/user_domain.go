@@ -22,7 +22,7 @@ type User struct {
 	UpdatedAtStr string `json:"updated_at"`
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
-	Deleted      bool
+	Deleted      bool `json:"deleted"`
 }
 
 type Login struct {

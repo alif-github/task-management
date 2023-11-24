@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"errors"
-	"github.com/alif-github/clean-arch/util"
+	"github.com/alif-github/task-management/util"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )

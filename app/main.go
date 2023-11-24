@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/alif-github/task-management/app/serverconfig"
 	"github.com/alif-github/task-management/config"
+	controller "github.com/alif-github/task-management/delivery/http"
 	"github.com/alif-github/task-management/util"
 	"github.com/gobuffalo/packr/v2"
 	migrate "github.com/rubenv/sql-migrate"
@@ -28,6 +29,8 @@ func main() {
 	logModel := util.GenerateLogModel(config.ApplicationConfiguration.GetServer().Version, config.ApplicationConfiguration.GetServer().Application)
 	logModel.Message = fmt.Sprintf(`Starting Port %s`, config.ApplicationConfiguration.GetServer().Port)
 	util.LogInfo(logModel.LoggerZapFieldObject())
+
+	controller.Controller()
 }
 
 func autoCreateSchema() {
